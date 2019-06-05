@@ -1,4 +1,4 @@
-const myTodos = [
+const myTodos: Array<Object> = [
   {
     createdAt: new Date(),
     text: 'My todo',
@@ -7,7 +7,7 @@ const myTodos = [
   },
 ];
 
-const addTodo = e => {
+const addTodo = (e: any) => {
   const { value } = e.target;
   if (value) {
     const todo = {
@@ -16,19 +16,32 @@ const addTodo = e => {
       done: false,
       deleting: false,
     };
+    e.target.value = '';
     myTodos.unshift(todo);
+    renderTodos();
   }
 };
+
+const onAddClick = () => {
+  const inputText = document.querySelector('#input-text');
+  addTodo(inputText);
+};
+
+function onCheckTodo() {
+  console.log('ppp');
+}
 
 const renderTodos = () => {
   const todos = myTodos
     .map(
-      (todo, index) => `
+      (todo: any, index) => `
       <div class="todo">
         <div class="todo__index">${Number(index) + 1}.</div>
         <div class="todo__text">${todo.text}</div>
         <div class="todo__actions">
-          <button id="check-${todo.createdAt}" class="btn btn-light btn-check">
+          <button onclick="${onCheckTodo}" id="check-${
+        todo.createdAt
+      }" class="btn btn-light btn-check">
             <i class="fa fa-check-circle ${todo.done ? 'active' : ''}" ></i>
           </button>
           <button id="delete-${
